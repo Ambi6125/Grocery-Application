@@ -7,8 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Orders\" />
-    <Folder Include="Products\" />
+    <Reference Include="EasyTools">
+      <HintPath>..\Shared\EasyTools.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
