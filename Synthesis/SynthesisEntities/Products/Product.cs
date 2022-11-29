@@ -12,7 +12,11 @@ namespace SynthesisEntities.Products
         private int? _id;
         private string name;
 
-
+        public Product(string name)
+        {
+            _id = null;
+            this.name = name;
+        }
 
         public bool Equals(Product? other)
         {
@@ -22,6 +26,11 @@ namespace SynthesisEntities.Products
         public IParameterValueCollection GetParameterArgs()
         {
             throw new NotImplementedException();
+            return new ParameterValueCollection()
+            {
+                { "id", _id },
+                { "name", name }
+            };
         }
     }
 }
