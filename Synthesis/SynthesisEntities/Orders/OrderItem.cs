@@ -9,6 +9,7 @@ namespace SynthesisEntities.Orders
 {
     public class OrderItem
     {
+        
         public Product Product { get; }
         public int Quantity { get; set; }
 

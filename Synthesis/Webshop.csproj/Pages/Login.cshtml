@@ -1,0 +1,14 @@
+﻿@page
+@model Webshop.Pages.LoginModel
+@{
+}
+
+
+<div class="box">
+    <form method="post">
+        <input type="text" asp-for="@Model.TextboxUsername" placeholder="Username" />
+        <input type="password" asp-for="@Model.TextboxPassword" placeholder = "Password" />
+        <input type="submit" value="login" />
+    </form>
+    <p>New? <a href="/Registration">Register</a> instead!</p>
+</div>

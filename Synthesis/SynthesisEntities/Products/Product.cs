@@ -9,27 +9,41 @@ namespace SynthesisEntities.Products
 {
     public class Product : IEquatable<Product>, IDataProvider
     {
-        private int? _id;
         private string name;
+        private double price;
 
-        public Product(string name)
+        public string Name => name;
+
+        public Product(string name, double price)
         {
-            _id = null;
             this.name = name;
+            this.price = price;
+        }
+
+        public double Price
+        {
+            get => price;
+            set
+            {
+                if(value < 0)
+                {
+                    throw new ArgumentException("Price cannot be below 0");
+                }
+                price = value;
+            }
         }
 
         public bool Equals(Product? other)
         {
-            return _id == other?._id;
+            return name == other.name && price == other.price;
         }
 
         public IParameterValueCollection GetParameterArgs()
         {
-            throw new NotImplementedException();
             return new ParameterValueCollection()
             {
-                { "id", _id },
-                { "name", name }
+                { "name", name },
+                { "price", price }
             };
         }
     }

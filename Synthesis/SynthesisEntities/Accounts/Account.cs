@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace SynthesisEntities.Accounts
 {
-    public class Account : IDataProvider
+    public abstract class Account : IDataProvider
     {
         private readonly int? _id;
         private string username;
@@ -45,7 +45,7 @@ namespace SynthesisEntities.Accounts
             }
         }
 
-        
+        public int ID => _id.HasValue ? _id.Value : throw new NullReferenceException();
 
         /// <summary>
         /// Create a NEW account which has not been registered
@@ -54,7 +54,7 @@ namespace SynthesisEntities.Accounts
         {
             _id = null;
             this.username = username;
-            salt = PasswordHelper.GenerateSalt(40);
+            salt = PasswordHelper.GenerateSalt(45);
             HashAlgorithm algorithm = PasswordHelper.DefaultHash;
             this.password = algorithm(salt, password);
             this.email = email;
@@ -71,7 +71,7 @@ namespace SynthesisEntities.Accounts
 
         public IParameterValueCollection GetParameterArgs()
         {
-            return new ParameterValueCollection
+            var result = new ParameterValueCollection
             {
                 { "id", _id },
                 { "username", username },
@@ -79,6 +79,17 @@ namespace SynthesisEntities.Accounts
                 { "password", password },
                 { "email", email }
             };
+
+            //if(this is CustomerAccount ca)
+            //{
+            //    result.Add("address", ca.ShippingAddress);
+            //}
+            //else if(this is EmployeeAccount ea)
+            //{
+            //    result.Add("birthday", ea.Birthday);
+            //}
+
+            return result;
         }
     }
 }
