@@ -47,7 +47,17 @@ namespace Webshop.Pages
 
             AccountManager am = new AccountManager(new DBAccount());
 
-            am.RegisterAccount(newAccount);
+            var response = am.RegisterAccount(newAccount);
+
+
+            if (response.Success)
+            {
+                HttpContext.Response.Redirect("/Success?action=registration");
+            }
+            else
+            {
+                ErrorMessage = response.Message;
+            }
         }
     }
 }

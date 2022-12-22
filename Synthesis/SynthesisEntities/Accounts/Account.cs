@@ -91,5 +91,15 @@ namespace SynthesisEntities.Accounts
 
             return result;
         }
+
+        public bool PasswordMatches(string password)
+        {
+            return this.password == PasswordHelper.DefaultHash(salt, password);
+        }
+
+        public bool PasswordMatches(string password, HashAlgorithm hash)
+        {
+            return this.password == hash(salt, password);
+        }
     }
 }

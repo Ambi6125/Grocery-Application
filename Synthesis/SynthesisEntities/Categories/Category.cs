@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EasyTools.MySqlDatabaseTools;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +7,15 @@ using System.Threading.Tasks;
 
 namespace SynthesisEntities.Categories
 {
-    public class Category
+    public class Category : IEquatable<Category>, IDataProvider
     {
         private int? id;
         private string name;
         private Category? parentCategory;
+
+        public int ID => id.HasValue ? id.Value : throw new NullReferenceException();
+
+        public string Name => name;
 
         public Category? Parent => parentCategory;
         public Category(string name)
@@ -44,25 +49,50 @@ namespace SynthesisEntities.Categories
         }
         public override string ToString()
         {
+            return name;
+        }
+
+        public string GetTreeString()
+        {
             if (parentCategory is null) //Recursion endpoint
             {
                 return name;
             }
-            return parentCategory.ToString() + '\u2192' + name;
+            return parentCategory.GetTreeString() + '\u2192' + name;
         }
-    }
 
-
-
-    public class Response
-    {
-        public bool Success { get; set; }
-        public string Message { get; set; }
-
-        public Response(bool success, string message)
+#pragma warning disable CS8601
+        /// <summary>
+        /// Attempts to write this Categorys parent to the target.
+        /// If there is no parent, the targets current value is unchanged.
+        /// </summary>
+        /// <param name="target">A reference to the variable to write to.</param>
+        /// <returns>True if a parent exists, otherwise false.</returns>
+        public bool TryGetParent(ref Category target)
         {
-            Success = success;
-            Message = message;
+            bool hasParent = parentCategory is not null;
+
+            if (hasParent)
+                target = parentCategory;
+
+            return hasParent;
+        }
+#pragma warning restore CS8601 
+
+        public bool Equals(Category? other)
+        {
+            return id == other?.id;
+        }
+
+        public IParameterValueCollection GetParameterArgs()
+        {
+            var args = new ParameterValueCollection
+            {
+                { "id", id },
+                { "name", name },
+                { "parentId", parentCategory is not null ? parentCategory.ID : null }
+            };
+            return args;
         }
     }
 }

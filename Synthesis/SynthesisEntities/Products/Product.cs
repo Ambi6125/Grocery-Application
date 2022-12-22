@@ -1,4 +1,5 @@
 ﻿using EasyTools.MySqlDatabaseTools;
+using SynthesisEntities.Categories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +12,19 @@ namespace SynthesisEntities.Products
     {
         private string name;
         private double price;
+        private Category category;
 
         public string Name => name;
-
-        public Product(string name, double price)
+        public Category Category => category;
+        public Product(string name, double price, Category category)
         {
+            if(category.Parent is null)
+            {
+                throw new ArgumentException("Products cannot be added to top-level categories.");
+            }
             this.name = name;
             this.price = price;
+            this.category = category;
         }
 
         public double Price

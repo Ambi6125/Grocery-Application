@@ -1,0 +1,12 @@
+﻿@page
+@model Webshop.Pages.CartModel
+@{
+    if(HttpContext.Session.GetString("Username") is not null)
+    {
+        Layout = "_LoggedInLayout";
+    }
+    else
+    {
+        Layout = "_Layout";
+    }
+}

@@ -1,13 +1,27 @@
 ﻿@page
 @model Webshop.Pages.RegistrationModel
 @{
+    if(HttpContext.Session.GetString("Username") is not null)
+    {
+        Layout = "_LoggedInLayout";
+    }
+    else
+    {
+        Layout = "_Layout";
+    }
 }
 
 <div class="box soilColor">
 
     <h3>@Model.ErrorMessage</h3>
 
-    <form>
-        <input type="text" placeholder="Username"/>
+    <form method="post">
+        <input type="text" placeholder="Username" asp-for=Username/>
+        <input type="password" placeholder="Password" asp-for=Password/>
+        <input type="password" placeholder="Confirm password" asp-for=ConfirmPassword />
+        <input type="email" placeholder="E-mail address" asp-for=Email/>
+        <input type="text" placeholder="Shipping address" asp-for=ShippingAddress/>
+
+        <input type="submit" value="Register" />
     </form>
 </div>

@@ -2,6 +2,14 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+    if(HttpContext.Session.GetString("Username") is not null)
+    {
+        Layout = "_LoggedInLayout";
+    }
+    else
+    {
+        Layout = "_Layout";
+    }
 }
 
 <div class="text-center">

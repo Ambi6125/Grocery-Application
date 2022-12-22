@@ -23,18 +23,15 @@ namespace SynthesisDataLayer.Accounts
 
         private DBAccountType DetermineType(IReadOnlyParameterValueCollection values)
         {
-            if(values["address"] is not DBNull)
-            {
+            object checkingValue = values.GetValueAs<object>("deliveryAddress");
+            if (checkingValue is not (null or DBNull))
                 return DBAccountType.Customer;
-            }
-            else if(values["birthday"] is not DBNull)
-            {
+            checkingValue = values.GetValueAs<object>("birthday");
+            if (checkingValue is not (null or DBNull))
                 return DBAccountType.Employee;
-            }
-            else
-            {
-                throw new ArgumentException("The account type cannot be derived from the provided dataset.\nIs thedataset invalid?");
-            }
+
+
+            throw new InvalidDataException("Account type indistinguishable. Possible invalid dataset.");
         }
 
         private MySqlTable Customers => mainTable.Join(Join.Inner, "sy_customerAccs", "sy_accounts.id = sy_customerAccs.id");
@@ -148,13 +145,14 @@ namespace SynthesisDataLayer.Accounts
 
                     using (MySqlCommand cmd = new MySqlCommand(query, conn))
                     {
+
                         foreach (var dataPair in account.GetParameterArgs())
                         {
                             cmd.Parameters.AddWithValue(dataPair.ParameterName, dataPair.Value);
                         }
 
+                        conn.Open();
                         cmd.ExecuteNonQuery();
-
 
                         if (account is CustomerAccount ca)
                         {
@@ -174,7 +172,7 @@ namespace SynthesisDataLayer.Accounts
                 }
                 catch (MySqlException e)
                 {
-
+                    return new ValidationResponse(false, e.Message);
                 }
                 finally
                 {
@@ -237,8 +235,11 @@ namespace SynthesisDataLayer.Accounts
                 .Join(Join.Left, "sy_empAccs", "sy_accounts.id = sy_empAccs.id");
 
             MySqlCondition condition = new MySqlCondition("username", username, Strictness.MustMatchExactly);
-            SelectQuery query = new SelectQuery(table, "sy_accounts.*, sy_customerAccs.address, sy_empaccs.birthday", condition);
+            SelectQuery query = new SelectQuery(table, "sy_accounts.*, sy_customerAccs.deliveryAddress, sy_empaccs.birthday", condition);
             var dbResponse = db.Select(query);
+
+            if (dbResponse is null)
+                return null;
 
             if (dbResponse.Count > 1)
                 throw new InvalidDataException("Unexpected result: query returned more than 1 row.");
@@ -250,7 +251,7 @@ namespace SynthesisDataLayer.Accounts
             //Read common data
             int id = dataRow.GetValueAs<int>("id");
             string salt = dataRow.GetValueAs<string>("salt");
-            string password = dataRow.GetValueAs<string>("Password");
+            string password = dataRow.GetValueAs<string>("password");
             string email = dataRow.GetValueAs<string>("email");
             DBAccountType type = DetermineType(dataRow);
             Account result;

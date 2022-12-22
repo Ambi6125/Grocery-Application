@@ -4,10 +4,12 @@
 }
 
 
-<div class="box">
+<div class="box leafColor">
     <form method="post">
         <input type="text" asp-for="@Model.TextboxUsername" placeholder="Username" />
+        <span asp-validation-for="TextboxUsername"></span>
         <input type="password" asp-for="@Model.TextboxPassword" placeholder = "Password" />
+        <span asp-validation-for="TextboxPassword"></span>
         <input type="submit" value="login" />
     </form>
     <p>New? <a href="/Registration">Register</a> instead!</p>

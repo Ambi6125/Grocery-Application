@@ -1,0 +1,18 @@
+﻿@page
+@model Webshop.Pages.AccountModel
+@{
+    if(HttpContext.Session.GetString("Username") is not null)
+    {
+        Layout = "_LoggedInLayout";
+    }
+    else
+    {
+        Layout = "_Layout";
+    }
+}
+<div class="box soilColor">
+    <h4>Username: @HttpContext.Session.GetString("Username")</h4>
+    <form method="post">
+        <input type="submit" value="Log out" />
+    </form>
+</div>

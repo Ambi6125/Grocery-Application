@@ -1,0 +1,17 @@
+﻿@page
+@model Webshop.Pages.SuccessModel
+@{
+    if(HttpContext.Session.GetString("Username") is not null)
+    {
+        Layout = "_LoggedInLayout";
+    }
+    else
+    {
+        Layout = "_Layout";
+    }
+}
+
+<div class="box sandColor">
+    <h2>Success!</h2>
+    <h3>@Model.Message</h3>
+</div>

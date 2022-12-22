@@ -13,5 +13,14 @@ namespace Webshop.Pages
         public void OnGet()
         {
         }
+
+        public void OnPost()
+        {
+            if (ModelState.IsValid)
+            {
+                HttpContext.Session.SetString("Username", TextboxUsername ?? throw new ArgumentException("No username value"));
+                HttpContext.Response.Redirect("/Success?action=login");
+            }
+        }
     }
 }
