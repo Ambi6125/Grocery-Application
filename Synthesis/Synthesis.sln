@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webshop", "Webshop.csproj\W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobertHeijn Desktop", "RobertHeijn Desktop\RobertHeijn Desktop.csproj", "{9EEE6350-78FD-4167-8B2E-7AAD86988062}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SynthesisUnitTests", "SynthesisUnitTests\SynthesisUnitTests.csproj", "{E05C16C5-86BD-4650-8760-677044BDC427}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{9EEE6350-78FD-4167-8B2E-7AAD86988062}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9EEE6350-78FD-4167-8B2E-7AAD86988062}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9EEE6350-78FD-4167-8B2E-7AAD86988062}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E05C16C5-86BD-4650-8760-677044BDC427}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E05C16C5-86BD-4650-8760-677044BDC427}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E05C16C5-86BD-4650-8760-677044BDC427}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E05C16C5-86BD-4650-8760-677044BDC427}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

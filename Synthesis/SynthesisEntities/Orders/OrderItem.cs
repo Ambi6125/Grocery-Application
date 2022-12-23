@@ -24,5 +24,10 @@ namespace SynthesisEntities.Orders
             Product = product;
             Quantity = quantity;
         }
+
+        public override string ToString()
+        {
+            return $"{Product.Name} x{Quantity}";
+        }
     }
 }

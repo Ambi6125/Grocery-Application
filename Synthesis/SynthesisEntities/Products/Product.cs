@@ -13,7 +13,6 @@ namespace SynthesisEntities.Products
         private string name;
         private double price;
         private Category category;
-
         public string Name => name;
         public Category Category => category;
         public Product(string name, double price, Category category)
@@ -40,6 +39,11 @@ namespace SynthesisEntities.Products
             }
         }
 
+        public override string ToString()
+        {
+            return name;
+        }
+
         public bool Equals(Product? other)
         {
             return name == other.name && price == other.price;
@@ -50,7 +54,8 @@ namespace SynthesisEntities.Products
             return new ParameterValueCollection()
             {
                 { "name", name },
-                { "price", price }
+                { "price", price },
+                { "category", category.ID }
             };
         }
     }

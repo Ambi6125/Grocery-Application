@@ -52,6 +52,28 @@ namespace SynthesisEntities.Categories
             return name;
         }
 
+        public Category? GetFromTree(int id)
+        {
+            if(parentCategory is null)
+            {
+                return null;
+            }
+
+            if (this.id == id)
+            {
+                return this;
+            }
+            else
+            {
+                return parentCategory.GetFromTree(id);
+            }
+        }
+
+        /// <summary>
+        /// Writes the names of all categories in this tree top-down
+        /// as a string, seperated by arrows (\u2192).
+        /// </summary>
+        /// <returns></returns>
         public string GetTreeString()
         {
             if (parentCategory is null) //Recursion endpoint

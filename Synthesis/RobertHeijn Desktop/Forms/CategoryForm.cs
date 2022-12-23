@@ -32,6 +32,7 @@ namespace RobertHeijn_Desktop.Forms
         private void OnLoad(object sender, EventArgs e) //Load in category form
         {
             pnlControlContainer.Controls.Add(new CategoryFlowBox(rootManager.CategoryManager));
+            lblSelection.Text = String.Empty;
         }
 
         private void OnClosed(object sender, FormClosedEventArgs e)
@@ -94,12 +95,21 @@ namespace RobertHeijn_Desktop.Forms
         private void OnImportClick(object sender, EventArgs e)
         {
             draft = ((CategoryFlowBox)pnlControlContainer.Controls.Single()).SelectedCategory;
+            lblSelection.Text = "Editing: " + draft.Name;
         }
 
         private void OnParentSelectClick(object sender, EventArgs e)
         {
             draft = null;
-            lblSelection.Text = ((CategoryFlowBox)pnlControlContainer.Controls.Single()).SelectedCategory.Name;
+            try
+            {
+                //HACK: Why does this still throw?
+                lblSelection.Text = "Make category in:\n" + ((CategoryFlowBox)pnlControlContainer.Controls.Single()).SelectedCategory.Name;
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Please make a selection first.");
+            }
         }
     }
 }

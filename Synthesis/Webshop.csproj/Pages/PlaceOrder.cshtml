@@ -1,5 +1,5 @@
 ﻿@page
-@model Webshop.Pages.CartModel
+@model Webshop.Pages.PlaceOrderModel
 @{
     if(HttpContext.Session.GetString("Username") is not null)
     {
@@ -8,6 +8,5 @@
     else
     {
         Layout = "_Layout";
-        HttpContext.Response.Redirect("/Login");
     }
 }

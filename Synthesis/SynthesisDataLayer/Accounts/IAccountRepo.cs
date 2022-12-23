@@ -17,5 +17,6 @@ namespace SynthesisDataLayer.Accounts
         IValidationResponse Update(Account account);
 
         Account? MatchUsername(string username);
+        List<Account>? GetAll();
     }
 }

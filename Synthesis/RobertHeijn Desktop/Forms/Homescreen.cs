@@ -15,10 +15,11 @@ namespace RobertHeijn_Desktop.Forms
     { 
         private readonly LoginForm origin;
         private readonly RootManager managers;
-        public Homescreen(RootManager managers)
+        public Homescreen(RootManager managers, LoginForm source)
         {
             InitializeComponent();
             this.managers = managers;
+            origin = source;
         }
 
         private void OnLoad(object sender, EventArgs e)
@@ -29,6 +30,13 @@ namespace RobertHeijn_Desktop.Forms
         private void OnCategoryButtonClick(object sender, EventArgs e)
         {
             CategoryForm cf = new CategoryForm(managers, this);
+            cf.Show();
+            Hide();
+        }
+
+        private void OnProductsButtonClick(object sender, EventArgs e)
+        {
+            ProductsForm cf = new ProductsForm(managers, this);
             cf.Show();
             Hide();
         }

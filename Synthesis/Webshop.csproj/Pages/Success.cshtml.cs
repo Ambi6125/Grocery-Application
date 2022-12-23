@@ -19,6 +19,9 @@ namespace Webshop.Pages
                 case "logout":
                     Message = "You are now logged out";
                     break;
+                case "itemadded":
+                    Message = "Succesfully added item.";
+                    break;
             }
         }
     }

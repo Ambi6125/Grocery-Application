@@ -101,5 +101,33 @@ namespace SynthesisDataLayer.Categories
 
             return database.Update(query);
         }
+
+        public Category? GetByPrimaryKey(int id)
+        {
+            var condition = new MySqlCondition("id", id, Strictness.MustMatchExactly);
+            var query = new SelectQuery(categoriesTable, "*", condition);
+            var response = database.Select(query);
+
+            var row = response.Single();
+
+            int resultId = row.GetValueAs<int>("id");
+            string resultName = row.GetValueAs<string>("name");
+
+
+            //Determine whether a parent needs to be constructed
+            Category? resultParent;
+            object parentId = row["parentId"];
+            if(parentId is (null or DBNull))
+            {
+                resultParent = null;
+            }
+            else
+            {
+                resultParent = GetByPrimaryKey((int)parentId);
+            }
+
+
+            return new Category(resultId, resultName, resultParent);
+        }
     }
 }

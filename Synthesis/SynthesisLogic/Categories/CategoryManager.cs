@@ -28,6 +28,12 @@ namespace SynthesisLogic.Categories
             return dataSource.NextGeneration(parent);
         }
 
+        public Category? GetById(int? id)
+        {
+            if(id is null)
+                return null;
+            return dataSource.GetByPrimaryKey(id.Value);
+        }
 
         public IValidationResponse CreateNew(Category category)
         {

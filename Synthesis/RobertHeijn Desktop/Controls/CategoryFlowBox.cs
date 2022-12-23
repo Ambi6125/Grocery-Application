@@ -56,7 +56,12 @@ namespace RobertHeijn_Desktop.Controls
         
         private void SpawnNew(object sender, EventArgs e)
         {
-            CategoryPicker cp = new CategoryPicker(manager, flpBoxes.Controls.Cast<CategoryPicker>().LastOrDefault().Selection, allPickers.Count);
+            var lastPicker = flpBoxes.Controls.Cast<CategoryPicker>().LastOrDefault().Selection;
+            if(lastPicker is null)
+            {
+                return;
+            }
+            CategoryPicker cp = new CategoryPicker(manager, lastPicker, allPickers.Count);
             cp.ComboBox.SelectedIndexChanged += RedrawGeneration;
             cp.ComboBox.SelectedIndexChanged += SpawnNew; //If the child has its selection changed, call this method to redraw lower generations
 

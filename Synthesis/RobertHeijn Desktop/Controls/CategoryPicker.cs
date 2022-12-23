@@ -44,7 +44,7 @@ namespace RobertHeijn_Desktop.Controls
         private void OnLoad(object sender, EventArgs e)
         {
             SpawnChildren();
-            lblId.Text = $"Step {Generation}";
+            lblId.Text = $"Step {Generation + 1}";
         }
 
         /// <summary>

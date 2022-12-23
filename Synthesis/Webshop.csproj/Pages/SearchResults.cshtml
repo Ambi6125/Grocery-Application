@@ -1,0 +1,29 @@
+﻿@page
+@model Webshop.Pages.SearchResultsModel
+@{
+    if(HttpContext.Session.GetString("Username") is not null)
+    {
+        Layout = "_LoggedInLayout";
+    }
+    else
+    {
+        Layout = "_Layout";
+    }
+}
+<h1>@Model.ResultProducts.Count results found.</h1>
+<div class="box pineColor">
+    @foreach(var item in Model.ResultProducts)
+    {
+        <div class="box soilColor">
+            <h3>Name: @item.Name</h3>
+            <h4>Price: €@item.Price</h4>
+            @if(HttpContext.Session.GetString("Username") is not null)
+            {
+                <form method="post">
+                    <button type="submit" name="product" value="@item" asp-page-handler="Order">Order</button>
+                </form>
+            }
+        </div>
+    }
+
+</div>

@@ -1,10 +1,12 @@
 using RobertHeijn_Desktop.Forms;
 using SynthesisDataLayer.Accounts;
 using SynthesisDataLayer.Categories;
+using SynthesisDataLayer.Products;
 using SynthesisEntities.Accounts;
 using SynthesisLogic;
 using SynthesisLogic.Accounts;
 using SynthesisLogic.Categories;
+using SynthesisLogic.Products;
 
 namespace RobertHeijn_Desktop
 {
@@ -14,11 +16,12 @@ namespace RobertHeijn_Desktop
         public LoginForm()
         {
             InitializeComponent();
-            managers = new RootManager
-            {
-                AccountManager = new AccountManager(new DBAccount()),
-                CategoryManager = new CategoryManager(new DBCategories())
-            };
+            CategoryManager cm = new CategoryManager(new DBCategories());
+            managers = new RootManager(
+                new AccountManager(new DBAccount()),
+                cm,
+                new ProductManager(new DBProducts(), cm) 
+                );
         }
 
         private void OnLoginClick(object sender, EventArgs e)
@@ -62,7 +65,7 @@ namespace RobertHeijn_Desktop
             if (receivedData.PasswordMatches(tbPassword.Text))
             {
                 SessionSimulator.LoggedUser = receivedData;
-                Homescreen newScreen = new Homescreen(managers);
+                Homescreen newScreen = new Homescreen(managers, this);
                 newScreen.Show();
                 Hide();
             }

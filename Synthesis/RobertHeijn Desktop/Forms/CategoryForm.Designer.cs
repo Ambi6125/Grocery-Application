@@ -107,11 +107,12 @@
             // lblSelection
             // 
             this.lblSelection.AutoSize = true;
-            this.lblSelection.Location = new System.Drawing.Point(435, 63);
+            this.lblSelection.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblSelection.Location = new System.Drawing.Point(423, 63);
             this.lblSelection.Name = "lblSelection";
-            this.lblSelection.Size = new System.Drawing.Size(12, 20);
+            this.lblSelection.Size = new System.Drawing.Size(178, 41);
             this.lblSelection.TabIndex = 7;
-            this.lblSelection.Text = ".";
+            this.lblSelection.Text = "<selection>";
             // 
             // CategoryForm
             // 
@@ -127,7 +128,7 @@
             this.Controls.Add(this.tbName);
             this.Controls.Add(this.pnlControlContainer);
             this.Name = "CategoryForm";
-            this.Text = "CategoryForm";
+            this.Text = "Manage categories";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OnClosed);
             this.Load += new System.EventHandler(this.OnLoad);
             this.ResumeLayout(false);

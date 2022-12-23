@@ -14,5 +14,6 @@ namespace SynthesisDataLayer.Categories
         IReadOnlyCollection<Category> NextGeneration(Category category);
         IValidationResponse Insert(Category category);
         IValidationResponse Update(Category category);
+        Category? GetByPrimaryKey(int id);
     }
 }

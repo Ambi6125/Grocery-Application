@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SynthesisLogic.Cart
 {
-    public class OrderFormatter
+    public static class OrderFormatter
     {
         
         public static string Format(IEnumerable<OrderItem> orderItems)
@@ -22,6 +22,23 @@ namespace SynthesisLogic.Cart
                 var orderItem = orderItems.ElementAt(i);
                 sb.Append($"&{orderItem.Product.Name}/{orderItem.Quantity}");
             }
+            return sb.ToString();
+        }
+
+        public static string Format(IEnumerable<KeyValuePair<string, int>> values)
+        {
+            if (!values.Any())
+            {
+                return string.Empty;
+            }
+            var sb = new StringBuilder($"{values.First().Key}/{values.First().Value}");
+            int count = values.Count();
+            for(int i = 1; i < count; i++)
+            {
+                var pair = values.ElementAt(i);
+                sb.Append($"&{pair.Key}/{pair.Value}");
+            }
+
             return sb.ToString();
         }
 

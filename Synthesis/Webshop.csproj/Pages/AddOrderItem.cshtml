@@ -1,0 +1,20 @@
+﻿@page
+@model Webshop.Pages.AddOrderItemModel
+@{
+    if(HttpContext.Session.GetString("Username") is not null)
+    {
+        Layout = "_LoggedInLayout";
+    }
+    else
+    {
+        Layout = "_Layout";
+    }
+}
+
+<div class="box leafColor">
+    <h2>Purchasing @Model.Product</h2>
+    <form method="post">
+        Quantity: <input type="number" asp-for=Quantity />
+        <span asp-validation-for=Quantity></span>
+    </form>
+</div>

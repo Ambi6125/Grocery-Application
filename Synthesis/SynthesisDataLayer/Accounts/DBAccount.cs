@@ -273,5 +273,10 @@ namespace SynthesisDataLayer.Accounts
 
             return result;
         }
+
+        public List<Account>? GetAll()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
